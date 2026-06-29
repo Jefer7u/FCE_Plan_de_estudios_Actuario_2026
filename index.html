@@ -438,7 +438,7 @@ body {
 <div class="tabs-bar">
   <div class="tabs">
     <button class="tab active" onclick="switchTab('graph',this)">Grafo de correlativas</button>
-    <button class="tab" onclick="switchTab('grid',this)">Plan De Estudio</button>
+    <button class="tab" onclick="switchTab('grid',this)">Plan Kanban</button>
   </div>
   <div class="filter-row">
     <button class="chip active" onclick="filterCat(this,'all')">Todas</button>
@@ -524,11 +524,13 @@ const S = {
   '757':{ name:'Act.3 — Equilibrio Actuarial',         h:'4VH', lv:'Ciclo Profesional', pre:['754','755'], cat:'actuarial', crit:true },
   '756':{ name:'Act.4 — Fondos Jub. y Salud',          h:'6VH', lv:'Ciclo Profesional', pre:['754'],       cat:'actuarial', crit:true },
   '717':{ name:'Modelos y Proyecciones Actuariales',   h:'4VH', lv:'Ciclo Profesional', pre:['757','758','746'], cat:'actuarial', crit:true },
-  '728':{ name:'Práctica Profesional del Actuario',    h:'6VH', lv:'Ciclo Profesional', pre:['754','755','756'], cat:'actuarial', crit:true }
+  '728':{ name:'Práctica Profesional del Actuario',    h:'6VH', lv:'Ciclo Profesional', pre:['754','755','756'], cat:'actuarial', crit:true },
+  'OA1':{ name:'Optativa I',                           h:'—',   lv:'Optativas',         pre:[], cat:'actuarial' },
+  'OA2':{ name:'Optativa II',                          h:'—',   lv:'Optativas',         pre:[], cat:'actuarial' }
 };
 
-const LEVELS = ['Primer Tramo','Segundo Tramo','Ciclo Profesional'];
-const LV_SHORT = {'Primer Tramo':'1° Tramo','Segundo Tramo':'2° Tramo','Ciclo Profesional':'Ciclo Prof.'};
+const LEVELS = ['Primer Tramo','Segundo Tramo','Ciclo Profesional','Optativas'];
+const LV_SHORT = {'Primer Tramo':'1° Tramo','Segundo Tramo':'2° Tramo','Ciclo Profesional':'Ciclo Prof.','Optativas':'Optativas'};
 const CAT_NAME = { matematica:'Matemáticas', estadistica:'Estadística', economia:'Economía', actuarial:'Actuarial', derecho:'Derecho', otros:'Otras' };
 const ICON = { aprobada:'✅', disponible:'📚', cursando:'📖', bloqueada:'🚫' };
 const BC = { aprobada:'bap', disponible:'bdi', cursando:'bcu', bloqueada:'bbl' };
@@ -823,6 +825,10 @@ function buildGrid() {
   cpCodes.forEach(c => { const d = depth(c); if(!byD[d]) byD[d]=[]; byD[d].push(c); });
   const cpDepths = Object.keys(byD).map(Number).sort((a,b)=>a-b);
   cpDepths.forEach((d,i) => buildKanbanCol(kanban, `CP · ${i+1}`, byD[d]));
+
+  // Optativas — columna final sin correlativas
+  buildKanbanCol(kanban, 'Optativas',
+    Object.entries(S).filter(([,d])=>d.lv==='Optativas').map(([c])=>c));
 }
 
 function buildKanbanCol(container, colTitle, codes) {
