@@ -207,24 +207,47 @@ body {
 .g-edge { pointer-events: none; transition: opacity 0.2s; }
 .dimmed { opacity: 0.08 !important; }
 
-/* ══ GRID PANEL ══ */
-.grid-outer { padding: 24px 32px; }
-.section-head {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 12px; margin-top: 24px;
+/* ══ GRID PANEL — KANBAN ══ */
+.grid-outer { padding: 24px 32px; overflow-x: auto; }
+
+/* kanban layout */
+.kanban { display: flex; gap: 14px; align-items: flex-start; min-width: max-content; }
+.kanban-col { width: 210px; flex-shrink: 0; display: flex; flex-direction: column; }
+
+.kanban-col-hdr {
+  padding: 12px 14px 10px;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: var(--s2); border: 1.5px solid var(--border2); border-bottom: none;
 }
-.section-head:first-child { margin-top: 0; }
-.section-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
-  text-transform: uppercase; color: var(--tx3); font-family: var(--mono);
+.kanban-col-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.7px; color: var(--tx2);
 }
-.section-line { flex: 1; height: 1px; background: var(--border); }
-.section-count { font-size: 11px; font-family: var(--mono); color: var(--tx3); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.kanban-col-meta {
+  font-size: 10px; font-family: var(--mono); color: var(--tx3);
+  margin-top: 3px; display: flex; align-items: center;
+}
+.kanban-col-pct { margin-left: auto; color: var(--red); font-weight: 700; }
+.kanban-col-bar { margin-top: 5px; height: 4px; background: var(--s3); border-radius: 2px; overflow: hidden; }
+.kanban-col-bar-fill {
+  height: 100%; border-radius: 2px; background: var(--ap);
+  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+}
+.kanban-col-body {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 8px 8px 12px;
+  border: 1.5px solid var(--border2); border-top: none;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  background: var(--s1); min-height: 60px;
+}
+.kanban-empty {
+  padding: 14px 10px; font-size: 11px; color: var(--tx3);
+  text-align: center; font-style: italic;
+}
 
 .s-card {
   background: var(--s1); border: 1.5px solid var(--border); border-radius: var(--r-lg);
-  padding: 16px 18px; cursor: pointer; transition: all 0.15s;
+  cursor: pointer; transition: all 0.15s;
   position: relative; overflow: hidden; box-shadow: var(--sh);
 }
 .s-card::before {
@@ -240,21 +263,34 @@ body {
 .s-card.cursando { border-color: var(--cu-b); background: var(--cu-d); }
 .s-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: var(--sh-lg); }
 .s-card.hidden { display: none; }
-.s-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-.s-code { font-family: var(--mono); font-size: 12px; color: var(--tx3); font-weight: 500; }
-.s-tog { font-size: 18px; line-height: 1; padding: 2px; transition: transform 0.15s; color: inherit; }
-.s-tog:hover { transform: scale(1.25); }
-.s-name { font-size: 14px; font-weight: 600; color: var(--tx); line-height: 1.35; margin-bottom: 10px; }
-.s-foot { display: flex; align-items: center; gap: 7px; }
-.s-cat { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+/* top category stripe */
+.s-cat-stripe { height: 3px; margin: 0 10px; border-radius: 0 0 3px 3px; }
+/* card inner padding */
+.s-inner { padding: 10px 12px 8px 16px; }
+.s-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+.s-code { font-family: var(--mono); font-size: 11px; color: var(--tx3); font-weight: 500; }
+.s-tog { font-size: 16px; line-height: 1; padding: 2px 3px; transition: transform 0.15s; border-radius: 6px; background: var(--red-bg); }
+.s-tog:hover { transform: scale(1.25); background: var(--red-bg); }
+.s-name { font-size: 13px; font-weight: 600; color: var(--tx); line-height: 1.35; margin-bottom: 7px; }
+.s-card.bloqueada .s-name { color: var(--tx3); }
+.s-foot { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.s-cat { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 6px; }
 .cat-matematica  { background: rgba(26,79,160,0.10);  color: var(--cm); }
 .cat-estadistica { background: rgba(123,53,192,0.10); color: var(--ce); }
 .cat-economia    { background: rgba(31,122,69,0.10);  color: var(--cec); }
 .cat-actuarial   { background: rgba(214,48,49,0.10);  color: var(--ca); }
 .cat-derecho     { background: rgba(192,120,0,0.10);  color: var(--cd); }
 .cat-otros       { background: rgba(15,122,122,0.10); color: var(--co); }
-.s-hours { font-family: var(--mono); font-size: 12px; color: var(--tx3); font-weight: 500; margin-left: auto; }
-.s-crit { font-size: 12px; }
+.s-hours { font-family: var(--mono); font-size: 11px; color: var(--tx3); font-weight: 500; margin-left: auto; }
+.s-crit { font-size: 11px; }
+/* status bar at card bottom */
+.s-status-bar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px 6px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; font-weight: 600; color: var(--tx3);
+}
+.s-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
 /* ══ MODAL ══ */
 .overlay {
@@ -402,7 +438,7 @@ body {
 <div class="tabs-bar">
   <div class="tabs">
     <button class="tab active" onclick="switchTab('graph',this)">Grafo de correlativas</button>
-    <button class="tab" onclick="switchTab('grid',this)">Plan de estudios</button>
+    <button class="tab" onclick="switchTab('grid',this)">Plan De Estudio</button>
   </div>
   <div class="filter-row">
     <button class="chip active" onclick="filterCat(this,'all')">Todas</button>
@@ -434,7 +470,7 @@ body {
   </div>
 </div>
 
-<!-- GRID PANEL -->
+<!-- KANBAN PANEL -->
 <div id="panel-grid" class="panel">
   <div class="grid-outer" id="grid-outer"></div>
 </div>
@@ -766,39 +802,87 @@ function clearHi(edges,nodeG,edgeG) {
   if (edges) colorEdges(edges);
 }
 
-// ══ GRID BUILD ══
+// ══ GRID BUILD — KANBAN ══
 function buildGrid() {
   const outer = document.getElementById('grid-outer');
   outer.innerHTML = '';
-  LEVELS.forEach(lv => {
-    const entries = Object.entries(S).filter(([,d])=>d.lv===lv);
-    const ap = entries.filter(([c])=>AP.has(c)).length;
-    const hd = document.createElement('div'); hd.className='section-head';
-    hd.innerHTML=`<span class="section-label">${lv}</span><div class="section-line"></div><span class="section-count">${ap}/${entries.length}</span>`;
-    outer.appendChild(hd);
-    const grid = document.createElement('div'); grid.className='grid';
-    entries.forEach(([code,d])=>{
-      const status=st(code);
-      const hidden=(filterSt&&filterSt!==status)||(filterCatV!=='all'&&filterCatV!==d.cat);
-      const card=document.createElement('div');
-      card.className=`s-card ${status}${hidden?' hidden':''}`;
-      card.dataset.code=code; card.dataset.status=status; card.dataset.cat=d.cat;
-      card.onclick=()=>openModal(code);
-      card.innerHTML=`
+  const kanban = document.createElement('div'); kanban.className = 'kanban';
+  outer.appendChild(kanban);
+
+  // 1er Tramo — una columna
+  buildKanbanCol(kanban, '1° Tramo',
+    Object.entries(S).filter(([,d])=>d.lv==='Primer Tramo').map(([c])=>c));
+
+  // 2do Tramo — una columna
+  buildKanbanCol(kanban, '2° Tramo',
+    Object.entries(S).filter(([,d])=>d.lv==='Segundo Tramo').map(([c])=>c));
+
+  // Ciclo Profesional — subcolumnas por profundidad topológica
+  const cpCodes = Object.entries(S).filter(([,d])=>d.lv==='Ciclo Profesional').map(([c])=>c);
+  const byD = {};
+  cpCodes.forEach(c => { const d = depth(c); if(!byD[d]) byD[d]=[]; byD[d].push(c); });
+  const cpDepths = Object.keys(byD).map(Number).sort((a,b)=>a-b);
+  cpDepths.forEach((d,i) => buildKanbanCol(kanban, `CP · ${i+1}`, byD[d]));
+}
+
+function buildKanbanCol(container, colTitle, codes) {
+  const apCount = codes.filter(c => AP.has(c)).length;
+  const pct = codes.length ? Math.round(apCount/codes.length*100) : 0;
+
+  const col = document.createElement('div'); col.className = 'kanban-col';
+  col.innerHTML = `
+    <div class="kanban-col-hdr">
+      <div class="kanban-col-title">${colTitle}</div>
+      <div class="kanban-col-meta">
+        <span>${apCount}/${codes.length} apr.</span>
+        <span class="kanban-col-pct">${pct}%</span>
+      </div>
+      <div class="kanban-col-bar">
+        <div class="kanban-col-bar-fill" style="width:${pct}%"></div>
+      </div>
+    </div>`;
+
+  const body = document.createElement('div'); body.className = 'kanban-col-body';
+  let visible = 0;
+
+  const ST_LBL = { aprobada:'Aprobada', disponible:'Disponible', cursando:'Cursando', bloqueada:'Bloqueada' };
+
+  codes.forEach(code => {
+    const d = S[code], status = st(code);
+    const hidden = (filterSt && filterSt !== status) || (filterCatV !== 'all' && filterCatV !== d.cat);
+    if (hidden) return;
+    visible++;
+
+    const catC = catCol(d.cat), stC = cv('--' + {aprobada:'ap',disponible:'di',cursando:'cu',bloqueada:'bl'}[status]);
+    const card = document.createElement('div');
+    card.className = `s-card ${status}`;
+    card.dataset.code = code; card.dataset.status = status; card.dataset.cat = d.cat;
+    card.onclick = () => openModal(code);
+
+    card.innerHTML = `
+      <div class="s-cat-stripe" style="background:${catC};opacity:${status==='bloqueada'?'0.18':'0.70'}"></div>
+      <div class="s-inner">
         <div class="s-top">
           <span class="s-code">${code}</span>
-          <button class="s-tog" onclick="event.stopPropagation();toggle('${code}')">${ICON[status]}</button>
+          <button class="s-tog" onclick="event.stopPropagation();toggle('${code}')" title="Avanzar estado">${ICON[status]}</button>
         </div>
         <div class="s-name">${d.name}</div>
         <div class="s-foot">
           <span class="s-cat cat-${d.cat}">${CAT_NAME[d.cat]}</span>
           <span class="s-hours">${d.h}</span>
           ${d.crit?'<span class="s-crit">⭐</span>':''}
-        </div>`;
-      grid.appendChild(card);
-    });
-    outer.appendChild(grid);
+        </div>
+      </div>
+      <div class="s-status-bar">
+        <div class="s-status-dot" style="background:${stC}"></div>
+        <span style="color:${stC}">${ST_LBL[status]}</span>
+      </div>`;
+
+    body.appendChild(card);
   });
+
+  if (visible === 0) body.innerHTML = `<div class="kanban-empty">Sin materias en este filtro</div>`;
+  col.appendChild(body); container.appendChild(col);
 }
 
 // ══ STATS ══
