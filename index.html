@@ -49,28 +49,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --sh-lg: 0 12px 40px rgba(90,55,30,0.18), 0 2px 8px rgba(90,55,30,0.10);
 }
 
+/* Modo oscuro — contraste reforzado: superficies más separadas del fondo,
+   texto secundario más luminoso, bordes y estados más visibles */
 [data-mode="dark"] {
-  --bg:       #1A1208;
-  --s1:       #231A0E;
-  --s2:       #2D2215;
-  --s3:       #38291C;
-  --border:   rgba(255,210,170,0.08);
-  --border2:  rgba(255,210,170,0.15);
-  --tx:       #F5ECD8;
-  --tx2:      #C8A882;
-  --tx3:      #7A6048;
-  --red:      #FF5252;
-  --red-d:    #FF7A7A;
-  --red-bg:   rgba(255,82,82,0.12);
-  --red-b:    rgba(255,82,82,0.30);
-  --ap:       #3DCC72;  --ap-d: rgba(61,204,114,0.12); --ap-b: rgba(61,204,114,0.28);
-  --di:       #FF5252;  --di-d: rgba(255,82,82,0.12);  --di-b: rgba(255,82,82,0.28);
-  --cu:       #FFA726;  --cu-d: rgba(255,167,38,0.12); --cu-b: rgba(255,167,38,0.28);
-  --bl:       #4A3828;  --bl-d: rgba(74,56,40,0.40);   --bl-b: rgba(74,56,40,0.60);
-  --cm: #5B9FFF; --ce: #B07AFF; --cec: #3DCC72;
-  --ca: #FF5252; --cd: #FFA726; --co: #3DCCCC;
-  --sh:    0 1px 4px rgba(0,0,0,0.30), 0 6px 20px rgba(0,0,0,0.25);
-  --sh-lg: 0 12px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.30);
+  --bg:       #15100A;
+  --s1:       #201812;
+  --s2:       #2E241A;
+  --s3:       #3D3022;
+  --border:   rgba(255,215,180,0.14);
+  --border2:  rgba(255,215,180,0.26);
+  --tx:       #F7EFDF;
+  --tx2:      #D6B896;
+  --tx3:      #A98D6C;
+  --red:      #FF6B6B;
+  --red-d:    #FF8F8F;
+  --red-bg:   rgba(255,107,107,0.14);
+  --red-b:    rgba(255,107,107,0.35);
+  --ap:       #4ADE80;  --ap-d: rgba(74,222,128,0.14); --ap-b: rgba(74,222,128,0.35);
+  --di:       #FF6B6B;  --di-d: rgba(255,107,107,0.14);--di-b: rgba(255,107,107,0.35);
+  --cu:       #FFB74D;  --cu-d: rgba(255,183,77,0.14); --cu-b: rgba(255,183,77,0.35);
+  --bl:       #8D7860;  --bl-d: rgba(141,120,96,0.14); --bl-b: rgba(141,120,96,0.32);
+  --cm: #7CB0FF; --ce: #C79CFF; --cec: #4ADE80;
+  --ca: #FF6B6B; --cd: #FFB74D; --co: #56D4D4;
+  --sh:    0 1px 4px rgba(0,0,0,0.35), 0 6px 20px rgba(0,0,0,0.30);
+  --sh-lg: 0 12px 48px rgba(0,0,0,0.60), 0 2px 8px rgba(0,0,0,0.35);
 }
 
 /* ══ BASE ══ */
@@ -103,7 +105,7 @@ body {
   font-size: 26px; font-weight: 700; font-family: var(--mono);
   color: var(--red); min-width: 64px; text-align: right; line-height: 1;
 }
-.hdr-pct-sub { font-size: 11px; color: var(--tx3); text-align: right; margin-top: 1px; font-family: var(--mono); }
+.hdr-pct-sub { font-size: 11px; color: var(--tx3); text-align: right; margin-top: 1px; font-family: var(--mono); white-space: nowrap; }
 .icon-btn {
   width: 36px; height: 36px; border-radius: var(--r); border: 1px solid var(--border2);
   background: var(--s2); color: var(--tx2); display: flex; align-items: center; justify-content: center;
@@ -136,6 +138,7 @@ body {
   height: 3px; border-radius: 0 0 var(--r-lg) var(--r-lg);
 }
 .stat-ap::after  { background: var(--ap); }
+.stat-pe::after  { background: var(--red); }
 .stat-di::after  { background: var(--di); }
 .stat-cu::after  { background: var(--cu); }
 .stat-bl::after  { background: var(--bl); }
@@ -144,7 +147,9 @@ body {
 .stat-n { font-size: 34px; font-weight: 700; font-family: var(--mono); line-height: 1; margin-bottom: 4px; }
 .c-ap { color: var(--ap); } .c-di { color: var(--di); }
 .c-cu { color: var(--cu); } .c-bl { color: var(--bl); }
+.c-pe { color: var(--red); }
 .stat-lbl { font-size: 13px; color: var(--tx3); font-weight: 500; }
+.stat-hint { font-size: 10px; color: var(--tx3); font-family: var(--mono); margin-top: 2px; opacity: 0.8; }
 
 /* tramo progress */
 .tramo-wrap {
@@ -281,6 +286,7 @@ body {
 .cat-actuarial   { background: rgba(214,48,49,0.10);  color: var(--ca); }
 .cat-derecho     { background: rgba(192,120,0,0.10);  color: var(--cd); }
 .cat-otros       { background: rgba(15,122,122,0.10); color: var(--co); }
+[data-mode="dark"] .s-cat { background: rgba(255,255,255,0.08); }
 .s-hours { font-family: var(--mono); font-size: 11px; color: var(--tx3); font-weight: 500; margin-left: auto; }
 .s-crit { font-size: 11px; }
 /* status bar at card bottom */
@@ -299,6 +305,7 @@ body {
   align-items: center; justify-content: center; padding: 16px;
   backdrop-filter: blur(8px);
 }
+[data-mode="dark"] .overlay { background: rgba(0,0,0,0.65); }
 .overlay.open { display: flex; animation: fo 0.2s ease; }
 @keyframes fo { from { opacity:0; } to { opacity:1; } }
 .modal {
@@ -321,6 +328,7 @@ body {
 .bdi { background: var(--di-d); color: var(--di); border: 1px solid var(--di-b); }
 .bcu { background: var(--cu-d); color: var(--cu); border: 1px solid var(--cu-b); }
 .bbl { background: var(--bl-d); color: var(--bl); border: 1px solid var(--bl-b); }
+[data-mode="dark"] .bbl { color: var(--tx2); }
 .m-info { flex: 1; min-width: 0; }
 .m-code-lbl { font-family: var(--mono); font-size: 12px; color: var(--tx3); margin-bottom: 3px; }
 .m-name-el { font-size: 17px; font-weight: 700; line-height: 1.25; }
@@ -395,7 +403,7 @@ body {
   <div class="hdr-right">
     <div>
       <div class="hdr-pct" id="pct-num">0%</div>
-      <div class="hdr-pct-sub">completado</div>
+      <div class="hdr-pct-sub" id="pct-sub">completado</div>
     </div>
     <button class="icon-btn" id="mode-btn" onclick="toggleMode()" title="Cambiar modo">🌙</button>
     <button class="txt-btn" onclick="exportProgress()">
@@ -418,6 +426,11 @@ body {
   <div class="stat-card stat-ap" onclick="filterStatus('aprobada')" id="sc-ap">
     <div class="stat-n c-ap" id="n-ap">0</div>
     <div class="stat-lbl">Aprobadas</div>
+  </div>
+  <div class="stat-card stat-pe" onclick="filterStatus('pendiente')" id="sc-pe" title="Todo lo que falta aprobar (disponibles + cursando + bloqueadas)">
+    <div class="stat-n c-pe" id="n-pe">0</div>
+    <div class="stat-lbl">Pendientes</div>
+    <div class="stat-hint" id="pe-hint"></div>
   </div>
   <div class="stat-card stat-di" onclick="filterStatus('disponible')" id="sc-di">
     <div class="stat-n c-di" id="n-di">0</div>
@@ -544,6 +557,13 @@ function st(c) {
   return 'bloqueada';
 }
 
+// ¿La tarjeta queda oculta por el filtro de estado? ('pendiente' = todo lo no aprobado)
+function stHidden(status) {
+  if (!filterSt) return false;
+  if (filterSt === 'pendiente') return status === 'aprobada';
+  return filterSt !== status;
+}
+
 // Topological depth: guarantees all edges go left→right
 const _dc = {};
 function depth(c) {
@@ -633,7 +653,7 @@ function buildGraph() {
       const band = document.createElementNS(ns,'rect');
       band.setAttribute('x', colX[d] - HGAP/2); band.setAttribute('y', 0);
       band.setAttribute('width', NW + HGAP); band.setAttribute('height', svgH);
-      band.setAttribute('fill', 'rgba(128,100,80,0.025)');
+      band.setAttribute('fill', isDark ? 'rgba(255,225,190,0.03)' : 'rgba(128,100,80,0.025)');
       svg.appendChild(band);
     }
     // Column label
@@ -676,7 +696,8 @@ function buildGraph() {
     const scol = stCols(status);
     const ccol = catCol(d.cat);
     const isBlocked = status === 'bloqueada';
-    const textOpacity = isBlocked ? '0.35' : '1';
+    // En modo oscuro las bloqueadas mantienen más opacidad para no perderse
+    const textOpacity = isBlocked ? (isDark ? '0.60' : '0.40') : '1';
 
     const g = document.createElementNS(ns,'g');
     g.setAttribute('class','g-node');
@@ -687,8 +708,8 @@ function buildGraph() {
     rect.setAttribute('x',p.x); rect.setAttribute('y',p.y);
     rect.setAttribute('width',p.w); rect.setAttribute('height',p.h);
     rect.setAttribute('rx','10');
-    const fillCol = isBlocked ? cv('--s2') : rgba(scol, '0.12');
-    const strokeCol = isBlocked ? cv('--border') : rgba(scol, '0.4');
+    const fillCol = isBlocked ? cv('--s2') : rgba(scol, isDark ? '0.16' : '0.12');
+    const strokeCol = isBlocked ? cv('--border2') : rgba(scol, isDark ? '0.55' : '0.4');
     rect.setAttribute('fill', fillCol);
     rect.setAttribute('stroke', strokeCol);
     rect.setAttribute('stroke-width','1.5');
@@ -699,7 +720,7 @@ function buildGraph() {
     stripe.setAttribute('x',p.x); stripe.setAttribute('y',p.y+8);
     stripe.setAttribute('width','3'); stripe.setAttribute('height',p.h-16);
     stripe.setAttribute('rx','1.5'); stripe.setAttribute('fill',ccol);
-    stripe.setAttribute('opacity', isBlocked ? '0.15' : '0.8');
+    stripe.setAttribute('opacity', isBlocked ? (isDark?'0.30':'0.15') : '0.8');
     g.appendChild(stripe);
 
     // Code (top left)
@@ -707,7 +728,7 @@ function buildGraph() {
     tc.setAttribute('x',p.x+12); tc.setAttribute('y',p.y+17);
     tc.setAttribute('font-size','10'); tc.setAttribute('font-family','JetBrains Mono, monospace');
     tc.setAttribute('font-weight','500'); tc.setAttribute('fill',cv('--tx3'));
-    tc.setAttribute('opacity', isBlocked?'0.4':'0.7');
+    tc.setAttribute('opacity', isBlocked ? (isDark?'0.65':'0.40') : (isDark?'0.9':'0.7'));
     tc.textContent = code;
     g.appendChild(tc);
 
@@ -716,7 +737,7 @@ function buildGraph() {
     th.setAttribute('x',p.x+p.w-10); th.setAttribute('y',p.y+17);
     th.setAttribute('text-anchor','end'); th.setAttribute('font-size','9');
     th.setAttribute('font-family','JetBrains Mono, monospace'); th.setAttribute('fill',cv('--tx3'));
-    th.setAttribute('opacity', isBlocked?'0.3':'0.6');
+    th.setAttribute('opacity', isBlocked ? (isDark?'0.55':'0.30') : (isDark?'0.85':'0.6'));
     th.textContent = d.h;
     g.appendChild(th);
 
@@ -771,7 +792,8 @@ function colorEdges(edges) {
     const s = st(src);
     const col = stCols(s);
     el.setAttribute('stroke', col);
-    el.setAttribute('stroke-opacity', s==='bloqueada'?'0.15':'0.4');
+    // Aristas más visibles en modo oscuro
+    el.setAttribute('stroke-opacity', s==='bloqueada' ? (isDark?'0.30':'0.15') : (isDark?'0.58':'0.40'));
     el.setAttribute('marker-end',`url(#arr-${s==='aprobada'?'ap':s==='disponible'?'di':s==='cursando'?'cu':'bl'})`);
   });
 }
@@ -855,7 +877,7 @@ function buildKanbanCol(container, colTitle, codes) {
 
   codes.forEach(code => {
     const d = S[code], status = st(code);
-    const hidden = (filterSt && filterSt !== status) || (filterCatV !== 'all' && filterCatV !== d.cat);
+    const hidden = stHidden(status) || (filterCatV !== 'all' && filterCatV !== d.cat);
     if (hidden) return;
     visible++;
 
@@ -866,7 +888,7 @@ function buildKanbanCol(container, colTitle, codes) {
     card.onclick = () => openModal(code);
 
     card.innerHTML = `
-      <div class="s-cat-stripe" style="background:${catC};opacity:${status==='bloqueada'?'0.18':'0.70'}"></div>
+      <div class="s-cat-stripe" style="background:${catC};opacity:${status==='bloqueada'?(isDark?'0.35':'0.18'):'0.70'}"></div>
       <div class="s-inner">
         <div class="s-top">
           <span class="s-code">${code}</span>
@@ -896,12 +918,19 @@ function updateStats() {
   const codes=Object.keys(S);
   const cnt={aprobada:0,disponible:0,cursando:0,bloqueada:0};
   codes.forEach(c=>cnt[st(c)]++);
+  const rest = codes.length - cnt.aprobada;
   const pct=Math.round(cnt.aprobada/codes.length*100);
   document.getElementById('n-ap').textContent=cnt.aprobada;
+  document.getElementById('n-pe').textContent=rest;
   document.getElementById('n-di').textContent=cnt.disponible;
   document.getElementById('n-cu').textContent=cnt.cursando;
   document.getElementById('n-bl').textContent=cnt.bloqueada;
   document.getElementById('pct-num').textContent=pct+'%';
+  document.getElementById('pct-sub').textContent = rest === 0
+    ? '¡Carrera completa! 🎓'
+    : `${cnt.aprobada}/${codes.length} · faltan ${rest}`;
+  document.getElementById('pe-hint').textContent =
+    `${cnt.disponible} disp. · ${cnt.cursando} curs. · ${cnt.bloqueada} bloq.`;
 
   const bars=document.getElementById('tramo-bars'); bars.innerHTML='';
   LEVELS.forEach(lv=>{
@@ -918,6 +947,11 @@ function updateStats() {
 // ══ INTERACTIONS ══
 function toggle(code) {
   const s=st(code);
+  if(s==='bloqueada'){
+    const falta=S[code].pre.filter(p=>!AP.has(p)).length;
+    toast(`🚫 Bloqueada — faltan ${falta} correlativa${falta===1?'':'s'}`);
+    return;
+  }
   if(s==='disponible') CU.add(code);
   else if(s==='cursando'){CU.delete(code);AP.add(code);}
   else if(s==='aprobada') AP.delete(code);
@@ -926,8 +960,8 @@ function toggle(code) {
 
 function filterStatus(s) {
   filterSt=filterSt===s?null:s;
-  ['ap','di','cu','bl'].forEach(k=>document.getElementById('sc-'+k).classList.remove('active'));
-  if(filterSt){const m={aprobada:'sc-ap',disponible:'sc-di',cursando:'sc-cu',bloqueada:'sc-bl'};document.getElementById(m[filterSt]).classList.add('active');}
+  ['ap','pe','di','cu','bl'].forEach(k=>document.getElementById('sc-'+k).classList.remove('active'));
+  if(filterSt){const m={aprobada:'sc-ap',pendiente:'sc-pe',disponible:'sc-di',cursando:'sc-cu',bloqueada:'sc-bl'};document.getElementById(m[filterSt]).classList.add('active');}
   render();
 }
 function filterCat(el,cat) {
@@ -998,7 +1032,7 @@ function toggleMode(){
   document.documentElement.setAttribute('data-mode',isDark?'dark':'light');
   document.getElementById('mode-btn').textContent=isDark?'☀️':'🌙';
   localStorage.setItem('act_mode',isDark?'dark':'light');
-  setTimeout(()=>{ buildGraph(); if(window._edges)colorEdges(window._edges); },40);
+  setTimeout(()=>{ buildGraph(); buildGrid(); if(window._edges)colorEdges(window._edges); },40);
 }
 
 // ══ STORAGE ══
