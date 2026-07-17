@@ -298,6 +298,91 @@ body {
 }
 .s-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
+/* ══ PLANIFICADOR ══ */
+.plan-outer { padding: 24px 32px; }
+.plan-controls {
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  padding: 14px 18px; margin-bottom: 14px;
+  background: var(--s1); border: 1px solid var(--border); border-radius: var(--r-lg);
+}
+.plan-ctl { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--tx2); }
+.plan-ctl select {
+  font-family: var(--mono); font-size: 13px; padding: 5px 8px; border-radius: 8px;
+  border: 1.5px solid var(--border2); background: var(--s2); color: var(--tx); cursor: pointer;
+}
+.plan-switch {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;
+  padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border);
+  font-size: 13px; font-weight: 500; color: var(--tx2); transition: all 0.15s;
+}
+.plan-switch:hover { border-color: var(--border2); }
+.plan-switch input { accent-color: var(--red); width: 15px; height: 15px; cursor: pointer; }
+.plan-switch.on { border-color: var(--red-b); background: var(--red-bg); color: var(--tx); }
+.plan-note { font-size: 12px; color: var(--tx3); font-style: italic; margin-left: auto; }
+
+.plan-reco {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 14px 18px; margin-bottom: 18px;
+  background: var(--s1); border: 1px solid var(--border); border-radius: var(--r-lg);
+}
+.reco-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.7px; text-transform: uppercase; color: var(--tx3); }
+.reco-item { font-size: 13px; color: var(--tx2); display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
+.reco-item strong { color: var(--tx); }
+.reco-ic { flex-shrink: 0; }
+.reco-warn { color: var(--cu); font-weight: 600; }
+
+.plan-scroll { overflow-x: auto; padding-bottom: 8px; }
+.plan-timeline { display: flex; gap: 12px; align-items: stretch; min-width: max-content; }
+.pt-col { width: 180px; flex-shrink: 0; display: flex; flex-direction: column; }
+.pt-hdr {
+  padding: 10px 12px 8px; border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: var(--s2); border: 1.5px solid var(--border2); border-bottom: none;
+}
+.pt-col.intensivo .pt-hdr { background: var(--red-bg); border-style: dashed; }
+.pt-col.now .pt-hdr { background: var(--cu-d); }
+.pt-col.pt-fin .pt-hdr { background: var(--ap-d); }
+.pt-term { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--tx2); }
+.pt-year { font-family: var(--mono); font-size: 10px; color: var(--tx3); margin-top: 2px; }
+.pt-body {
+  flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 8px;
+  border: 1.5px solid var(--border2); border-top: none; background: var(--s1);
+  border-radius: 0 0 var(--r-lg) var(--r-lg); min-height: 70px;
+}
+.pt-col.intensivo .pt-body { border-style: dashed; }
+.p-card {
+  border: 1.5px solid var(--border); border-radius: 10px; padding: 8px 10px;
+  background: var(--bg); cursor: pointer; transition: all 0.13s;
+}
+.p-card:hover { border-color: var(--border2); transform: translateY(-1px); box-shadow: var(--sh); }
+.p-card-code { font-family: var(--mono); font-size: 10px; color: var(--tx3); display: flex; align-items: center; gap: 5px; }
+.p-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.p-card-name { font-size: 12px; font-weight: 600; line-height: 1.3; margin-top: 3px; }
+.pt-empty { font-size: 11px; color: var(--tx3); font-style: italic; text-align: center; padding: 10px 6px; }
+.pt-warn {
+  margin-top: 4px; font-size: 10px; color: var(--cu); font-weight: 600;
+  display: flex; gap: 5px; align-items: flex-start; line-height: 1.3;
+}
+.plan-reset {
+  display: none; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px;
+  border: 1.5px solid var(--red-b); background: var(--red-bg); color: var(--red);
+  font-size: 13px; font-weight: 600; transition: all 0.15s;
+}
+.plan-reset:hover { background: var(--red); color: #fff; }
+.p-card { position: relative; }
+.p-card[draggable="true"] { cursor: grab; }
+.p-card[draggable="true"]:active { cursor: grabbing; }
+.p-card.dragging { opacity: 0.45; }
+.p-card.pinned { border-color: var(--red-b); background: var(--red-bg); }
+.p-unpin { margin-left: auto; font-size: 11px; line-height: 1; padding: 0 2px; border-radius: 4px; transition: transform 0.12s; }
+.p-unpin:hover { transform: scale(1.3); }
+.pt-body.dragover { outline: 2px dashed var(--red); outline-offset: -4px; background: var(--red-bg); }
+.pt-col.extra { opacity: 0.75; }
+.pt-col.extra:hover, .pt-col.extra:has(.dragover) { opacity: 1; }
+@media (max-width: 720px) {
+  .plan-outer { padding-left: 16px; padding-right: 16px; }
+  .plan-note { display: none; }
+}
+
 /* ══ MODAL ══ */
 .overlay {
   display: none; position: fixed; inset: 0;
@@ -452,6 +537,7 @@ body {
   <div class="tabs">
     <button class="tab active" onclick="switchTab('graph',this)">Grafo de correlativas</button>
     <button class="tab" onclick="switchTab('grid',this)">Plan Kanban</button>
+    <button class="tab" onclick="switchTab('plan',this)">Planificador</button>
   </div>
   <div class="filter-row">
     <button class="chip active" onclick="filterCat(this,'all')">Todas</button>
@@ -486,6 +572,26 @@ body {
 <!-- KANBAN PANEL -->
 <div id="panel-grid" class="panel">
   <div class="grid-outer" id="grid-outer"></div>
+</div>
+
+<!-- PLANNER PANEL -->
+<div id="panel-plan" class="panel">
+  <div class="plan-outer">
+    <div class="plan-controls">
+      <label class="plan-switch" id="sw-ver"><input type="checkbox" onchange="setPlanOpt('ver',this.checked)"> ☀️ Intensivo Verano</label>
+      <label class="plan-switch" id="sw-inv"><input type="checkbox" onchange="setPlanOpt('inv',this.checked)"> ❄️ Intensivo Invierno</label>
+      <div class="plan-ctl">Materias por cuatrimestre
+        <select id="sel-capq" onchange="setPlanOpt('capQ',+this.value)"><option>2</option><option selected>3</option><option>4</option></select>
+      </div>
+      <div class="plan-ctl">Por intensivo
+        <select id="sel-capi" onchange="setPlanOpt('capI',+this.value)"><option selected>1</option><option>2</option></select>
+      </div>
+      <button class="plan-reset" id="plan-unpin-all" onclick="clearPins()" title="Quitar todas las materias fijadas y volver al plan automático">↺ Plan automático</button>
+      <span class="plan-note">Arrastrá materias entre períodos para armar tu camino — el resto se replanifica solo</span>
+    </div>
+    <div class="plan-reco" id="plan-reco"></div>
+    <div class="plan-scroll"><div class="plan-timeline" id="plan-timeline"></div></div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -971,8 +1077,7 @@ function filterCat(el,cat) {
 }
 function switchTab(tab,el) {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
-  document.getElementById('panel-graph').classList.toggle('active',tab==='graph');
-  document.getElementById('panel-grid').classList.toggle('active',tab==='grid');
+  ['graph','grid','plan'].forEach(p=>document.getElementById('panel-'+p).classList.toggle('active',tab===p));
 }
 
 // ══ MODAL ══
@@ -1032,7 +1137,7 @@ function toggleMode(){
   document.documentElement.setAttribute('data-mode',isDark?'dark':'light');
   document.getElementById('mode-btn').textContent=isDark?'☀️':'🌙';
   localStorage.setItem('act_mode',isDark?'dark':'light');
-  setTimeout(()=>{ buildGraph(); buildGrid(); if(window._edges)colorEdges(window._edges); },40);
+  setTimeout(()=>{ buildGraph(); buildGrid(); buildPlan(); if(window._edges)colorEdges(window._edges); },40);
 }
 
 // ══ STORAGE ══
@@ -1063,10 +1168,273 @@ function toast(msg){
   clearTimeout(t._to);t._to=setTimeout(()=>t.classList.remove('show'),2400);
 }
 
-// ══ RENDER ══
-function render(){updateStats();buildGraph();buildGrid();}
+// ══ PLANIFICADOR ══
+// Opciones del plan: intensivos opcionales + capacidad por período + materias fijadas a mano
+let PL = { ver:false, inv:false, capQ:3, capI:1, pins:{} };
+function savePlanOpts(){ localStorage.setItem('act_plan', JSON.stringify(PL)); }
+function loadPlanOpts(){ try{ Object.assign(PL, JSON.parse(localStorage.getItem('act_plan')||'{}')); }catch(_){} }
+function setPlanOpt(k,v){ PL[k]=v; savePlanOpts(); buildPlan(); }
 
-load(); render();
+// Altura = largo del camino crítico hacia adelante (cuántos "pisos" de correlativas dependen de esta materia)
+const _hc = {};
+function heightOf(c){
+  if (_hc[c] !== undefined) return _hc[c];
+  const deps = Object.keys(S).filter(k => S[k].pre.includes(c));
+  return (_hc[c] = deps.length ? 1 + Math.max(...deps.map(heightOf)) : 0);
+}
+// Cuántas materias desbloquea (transitivo)
+function unlocksOf(c){
+  const seen = new Set();
+  const go = x => Object.keys(S).forEach(k => { if (S[k].pre.includes(x) && !seen.has(k)) { seen.add(k); go(k); } });
+  go(c); return seen.size;
+}
+// Prioridad: camino crítico manda, luego desbloqueos, luego criticidad y carga
+function scoreOf(c){ return heightOf(c)*100 + unlocksOf(c)*10 + (S[c].crit?5:0) + (S[c].h==='6VH'?1:0); }
+
+const TERM_SEQ  = ['VER','1C','INV','2C'];
+const TERM_NAME = { VER:'☀️ Int. Verano', '1C':'1° Cuatrimestre', INV:'❄️ Int. Invierno', '2C':'2° Cuatrimestre' };
+function firstTerm(){
+  const d = new Date(), m = d.getMonth(), y = d.getFullYear();
+  if (m <= 1) return { t:'1C', y };        // ene–feb → arranca 1°C de este año
+  if (m <= 5) return { t:'INV', y };       // mar–jun → lo próximo es el invierno
+  if (m === 6) return { t:'2C', y };       // julio → lo próximo es el 2°C
+  return { t:'VER', y:y+1 };               // ago–dic → lo próximo es el verano siguiente
+}
+function nextTermOf(cur){
+  const i = TERM_SEQ.indexOf(cur.t);
+  return i === 3 ? { t:'VER', y:cur.y+1 } : { t:TERM_SEQ[i+1], y:cur.y };
+}
+function termLbl(tm){ return `${TERM_NAME[tm.t]} ${tm.y}`; }
+function termIndex(tm){ return tm.y*4 + TERM_SEQ.indexOf(tm.t); }
+
+// Scheduler goloso por prioridad, respetando correlativas (nunca cursa una materia
+// en el mismo período que su correlativa). Las materias "fijadas" (pins) por el
+// usuario ocupan su período elegido y el resto se autocompleta alrededor.
+function computePlan(o){
+  const pins = o.pins || {};
+  const done = new Set([...AP, ...CU]);   // asume que lo cursando se aprueba
+  const rem  = new Set(Object.keys(S).filter(c => !done.has(c)));
+  const terms = [], released = []; let cur = firstTerm(), guard = 0;
+  while (rem.size && guard++ < 60){
+    const idx = termIndex(cur);
+    const isInt = cur.t === 'VER' || cur.t === 'INV';
+    const enabled = !isInt || (cur.t === 'VER' ? o.ver : o.inv);
+    if (enabled){
+      const cap = isInt ? o.capI : o.capQ;
+      // 1) materias fijadas por el usuario en este período (si cumplen correlativas)
+      const pick = [];
+      [...rem].filter(c => pins[c] === idx).forEach(c => {
+        if (S[c].pre.every(p => done.has(p))) pick.push(c);
+        else released.push(c);              // correlativa incumplida → vuelve al automático
+      });
+      // 2) autocompletar sin tocar lo fijado a períodos futuros
+      const avail = [...rem].filter(c =>
+        !pick.includes(c) &&
+        !(pins[c] !== undefined && pins[c] > idx) &&
+        S[c].pre.every(p => done.has(p)));
+      avail.sort((a,b) => scoreOf(b) - scoreOf(a));
+      while (pick.length < cap && avail.length) pick.push(avail.shift());
+      pick.forEach(c => { done.add(c); rem.delete(c); });
+      terms.push({ t:cur.t, y:cur.y, idx, intensivo:isInt, pick, cap, remAfter:rem.size, over:pick.length>cap });
+    } else if (isInt) {
+      // intensivo apagado: liberar fijados que apuntaban acá
+      [...rem].forEach(c => { if (pins[c] === idx) released.push(c); });
+    }
+    cur = nextTermOf(cur);
+  }
+  // Columnas vacías extra al final, para poder arrastrar materias más tarde
+  if (terms.length){
+    let extra = 0;
+    while (extra < 2 && guard++ < 90){
+      const isInt = cur.t === 'VER' || cur.t === 'INV';
+      const enabled = !isInt || (cur.t === 'VER' ? o.ver : o.inv);
+      if (enabled){
+        terms.push({ t:cur.t, y:cur.y, idx:termIndex(cur), intensivo:isInt, pick:[], cap:isInt?o.capI:o.capQ, remAfter:0, extra:true });
+        extra++;
+      }
+      cur = nextTermOf(cur);
+    }
+  }
+  terms.released = released;
+  return terms;
+}
+
+function pCard(c, tm){
+  const d = S[c];
+  const isPinned = tm && PL.pins && PL.pins[c] === tm.idx;
+  const el = document.createElement('div'); el.className = 'p-card' + (isPinned ? ' pinned' : '');
+  el.onclick = () => openModal(c);
+  const pinBtn = isPinned ? `<button class="p-unpin" title="Quitar fijado (vuelve al plan automático)" onclick="event.stopPropagation();unpin('${c}')">📌</button>` : '';
+  el.innerHTML = `<div class="p-card-code"><span class="p-dot" style="background:${catCol(d.cat)}"></span>${c} · ${d.h}${d.crit?' ⭐':''}${pinBtn}</div><div class="p-card-name">${d.name}</div>`;
+  if (tm){
+    el.draggable = true;
+    el.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', c);
+      e.dataTransfer.effectAllowed = 'move';
+      el.classList.add('dragging');
+    });
+    el.addEventListener('dragend', () => el.classList.remove('dragging'));
+  }
+  return el;
+}
+
+// ── Drag & drop: fijar materias a un período ──
+function makeDropzone(b){
+  b.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; b.classList.add('dragover'); });
+  b.addEventListener('dragleave', () => b.classList.remove('dragover'));
+  b.addEventListener('drop', e => {
+    e.preventDefault(); b.classList.remove('dragover');
+    const code = e.dataTransfer.getData('text/plain');
+    if (code && S[code]) tryPin(code, +b.dataset.idx, +b.dataset.cap);
+  });
+}
+
+function tryPin(code, idx, cap){
+  if (PL.pins[code] === idx) return;
+  // Capacidad: no más fijadas que el cupo del período
+  const pinnedCount = Object.entries(PL.pins).filter(([c,i]) => i === idx && c !== code && !AP.has(c) && !CU.has(c)).length;
+  if (pinnedCount >= cap){
+    toast(`✗ Ese período ya tiene ${cap} materia${cap===1?'':'s'} fijada${cap===1?'':'s'}`);
+    return;
+  }
+  // Correlativas: aprobadas, cursando, o planificadas ANTES del período destino
+  const when = {};
+  (window._plan || []).forEach(t => t.pick.forEach(x => { if (x !== code) when[x] = t.idx; }));
+  const missing = S[code].pre.filter(p => !AP.has(p) && !CU.has(p) && !(when[p] < idx));
+  if (missing.length){
+    toast(`✗ Antes necesitás: ${missing.map(p => S[p].name).join(', ')}`);
+    return;
+  }
+  PL.pins[code] = idx; savePlanOpts(); buildPlan();
+  toast(`📌 ${S[code].name} fijada`);
+}
+
+function unpin(code){
+  delete PL.pins[code]; savePlanOpts(); buildPlan();
+  toast(`↺ ${S[code].name} vuelve al plan automático`);
+}
+function clearPins(){
+  PL.pins = {}; savePlanOpts(); buildPlan();
+  toast('↺ Plan automático restablecido');
+}
+
+function buildPlan(){
+  const tl = document.getElementById('plan-timeline');
+  if (!tl) return;
+  if (!PL.pins) PL.pins = {};
+
+  // Limpieza de fijados obsoletos (materias ya aprobadas/cursando o períodos pasados)
+  const nowIdx = termIndex(firstTerm());
+  let dirty = false;
+  Object.keys(PL.pins).forEach(c => {
+    if (!S[c] || AP.has(c) || CU.has(c) || PL.pins[c] < nowIdx){ delete PL.pins[c]; dirty = true; }
+  });
+
+  // Sincronizar controles con las opciones guardadas
+  const swV = document.getElementById('sw-ver'), swI = document.getElementById('sw-inv');
+  swV.classList.toggle('on', PL.ver); swV.querySelector('input').checked = PL.ver;
+  swI.classList.toggle('on', PL.inv); swI.querySelector('input').checked = PL.inv;
+  document.getElementById('sel-capq').value = PL.capQ;
+  document.getElementById('sel-capi').value = PL.capI;
+
+  const plan = computePlan(PL);
+  window._plan = plan;
+
+  // Fijados que perdieron validez (correlativa movida, intensivo apagado) → vuelven al automático
+  const relPinned = (plan.released || []).filter(c => PL.pins[c] !== undefined);
+  if (relPinned.length){
+    relPinned.forEach(c => delete PL.pins[c]);
+    dirty = true;
+    toast(`↺ ${relPinned.length} fijada${relPinned.length===1?'':'s'} volvió al plan automático`);
+  }
+  if (dirty) savePlanOpts();
+
+  const nPins = Object.keys(PL.pins).length;
+  const rb = document.getElementById('plan-unpin-all');
+  rb.style.display = nPins ? 'inline-flex' : 'none';
+  rb.textContent = `↺ Plan automático (${nPins} fijada${nPins===1?'':'s'})`;
+
+  tl.innerHTML = '';
+
+  // Columna "Cursando ahora"
+  if (CU.size){
+    const col = document.createElement('div'); col.className = 'pt-col now';
+    col.innerHTML = `<div class="pt-hdr"><div class="pt-term">📖 Cursando ahora</div><div class="pt-year">${CU.size} materia${CU.size===1?'':'s'}</div></div>`;
+    const b = document.createElement('div'); b.className = 'pt-body';
+    [...CU].forEach(c => b.appendChild(pCard(c)));
+    col.appendChild(b); tl.appendChild(col);
+  }
+
+  const real = plan.filter(t => !t.extra);
+  const bottlenecks = [];
+  plan.forEach(tm => {
+    const col = document.createElement('div');
+    col.className = 'pt-col' + (tm.intensivo ? ' intensivo' : '') + (tm.extra ? ' extra' : '');
+    col.innerHTML = `<div class="pt-hdr"><div class="pt-term">${TERM_NAME[tm.t]}</div><div class="pt-year">${tm.y} · ${tm.pick.length}/${tm.cap}</div></div>`;
+    const b = document.createElement('div'); b.className = 'pt-body';
+    b.dataset.idx = tm.idx; b.dataset.cap = tm.cap;
+    makeDropzone(b);
+    if (!tm.pick.length) b.innerHTML = `<div class="pt-empty">${tm.extra ? 'Soltá materias acá para postergarlas' : 'Sin materias disponibles'}</div>`;
+    tm.pick.forEach(c => b.appendChild(pCard(c, tm)));
+    if (tm.over) b.insertAdjacentHTML('beforeend', `<div class="pt-warn">⚠️ Sobrecarga: ${tm.pick.length}/${tm.cap} fijadas</div>`);
+    if (!tm.extra && !tm.intensivo && tm.pick.length < tm.cap && tm.remAfter > 0){
+      b.insertAdjacentHTML('beforeend', `<div class="pt-warn">⚠️ Cuello de botella: solo ${tm.pick.length} disponible${tm.pick.length===1?'':'s'}</div>`);
+      bottlenecks.push(tm);
+    }
+    col.appendChild(b); tl.appendChild(col);
+  });
+
+  if (real.length){
+    const lastT = real[real.length-1];
+    const col = document.createElement('div'); col.className = 'pt-col pt-fin';
+    col.innerHTML = `<div class="pt-hdr"><div class="pt-term">🎓 ¡Título!</div><div class="pt-year">fin ${lastT.y}</div></div><div class="pt-body"><div class="pt-empty">Plan de estudios completo 🎉</div></div>`;
+    tl.appendChild(col);
+  }
+
+  // ── Recomendaciones ──
+  const reco = document.getElementById('plan-reco');
+  const remainingN = Object.keys(S).length - AP.size;
+  if (remainingN === 0){
+    reco.innerHTML = `<div class="reco-title">Recomendaciones</div><div class="reco-item"><span class="reco-ic">🎓</span><span>¡No queda nada pendiente — felicitaciones!</span></div>`;
+    return;
+  }
+  if (!real.length){
+    reco.innerHTML = `<div class="reco-title">Recomendaciones</div><div class="reco-item"><span class="reco-ic">🎓</span><span>Solo te falta aprobar lo que estás cursando — ¡última recta!</span></div>`;
+    return;
+  }
+  const items = [];
+  const nQ = real.filter(t=>!t.intensivo).length;
+  const nI = real.filter(t=>t.intensivo && t.pick.length).length;
+  const last = real[real.length-1];
+  items.push(`<span class="reco-ic">🎓</span><span>Proyección: <strong>terminás en ${termLbl(last)}</strong> — ${nQ} cuatrimestre${nQ===1?'':'s'}${nI?` + ${nI} intensivo${nI===1?'':'s'}`:''} para ${remainingN} materia${remainingN===1?'':'s'} restante${remainingN===1?'':'s'}.</span>`);
+  if (nPins) items.push(`<span class="reco-ic">📌</span><span>Camino personalizado: <strong>${nPins}</strong> materia${nPins===1?'':'s'} fijada${nPins===1?'':'s'} a mano — el resto se acomoda alrededor.</span>`);
+  if (CU.size) items.push(`<span class="reco-ic">📖</span><span>El plan asume que aprobás las <strong>${CU.size}</strong> materia${CU.size===1?'':'s'} que estás cursando.</span>`);
+
+  // Prioridades: disponibles con mayor camino crítico
+  const disp = Object.keys(S).filter(c => st(c)==='disponible' && heightOf(c) > 0)
+    .sort((a,b) => scoreOf(b) - scoreOf(a)).slice(0,3);
+  if (disp.length) items.push(`<span class="reco-ic">🎯</span><span>Priorizá <strong>${disp.map(c=>S[c].name).join('</strong>, <strong>')}</strong> — están en el camino crítico y desbloquean más materias.</span>`);
+
+  // ¿Conviene activar intensivos?
+  if (!PL.ver || !PL.inv){
+    const altReal = computePlan({ ver:true, inv:true, capQ:PL.capQ, capI:Math.max(1,PL.capI), pins:PL.pins }).filter(t=>!t.extra);
+    if (altReal.length && termIndex(altReal[altReal.length-1]) < termIndex(last)){
+      const adel = [...new Set(altReal.filter(t=>t.intensivo).flatMap(t=>t.pick))].slice(0,4).map(c=>S[c].name);
+      items.push(`<span class="reco-ic">💡</span><span>Activando <strong>los intensivos</strong> terminarías en <strong>${termLbl(altReal[altReal.length-1])}</strong>. Conviene adelantar: <strong>${adel.join('</strong>, <strong>')}</strong>.</span>`);
+    } else {
+      items.push(`<span class="reco-ic">💡</span><span>Con la carga actual, los intensivos no acortan la fecha de egreso — servirían para aliviar cuatrimestres pesados.</span>`);
+    }
+  }
+  bottlenecks.forEach(tm => {
+    items.push(`<span class="reco-ic reco-warn">⚠️</span><span class="reco-warn">En ${termLbl(tm)} quedan pocas materias habilitadas — adelantar correlativas en un intensivo previo lo evita.</span>`);
+  });
+  reco.innerHTML = `<div class="reco-title">Recomendaciones</div>` + items.map(i=>`<div class="reco-item">${i}</div>`).join('');
+}
+
+// ══ RENDER ══
+function render(){updateStats();buildGraph();buildGrid();buildPlan();}
+
+loadPlanOpts(); load(); render();
 </script>
 </body>
 </html>
